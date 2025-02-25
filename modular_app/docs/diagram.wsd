@@ -1,0 +1,51 @@
+@startuml diagram
+skinparam backgroundColor #f5f7fa
+skinparam defaultFontColor #2c3e50
+skinparam defaultFontName Arial
+skinparam roundCorner 10
+skinparam componentStyle rectangle
+skinparam arrowColor #3498db
+skinparam noteBackgroundColor #fcf3e8
+skinparam noteBorderColor #f39c12
+
+title AI-Driven Multi-Agent Medical Assistant System
+
+' Define custom symbols
+!define MANAGER circle
+!define AGENT circle
+!define INPUTBOX rectangle
+!define TECHBOX rectangle
+!define METRICBOX rectangle
+
+package "Patient Data Inputs" as InputSection #e8f4fc {
+  INPUTBOX "Medical Images" as Images
+  INPUTBOX "Visible Symptoms" as Symptoms
+  INPUTBOX "Medical History" as History
+  INPUTBOX "Text Descriptions" as Texts
+}
+
+package "Multi-Agent System" as AgentSystem #f0faf0 {
+  MANAGER "Manager\nAgent" as ManagerAgent #white
+  AGENT "Image\nAgent" as ImageAgent #white
+  AGENT "Symptom\nAgent" as SymptomAgent #white
+  AGENT "History\nAgent" as HistoryAgent #white
+  AGENT "Text\nAgent" as TextAgent #white
+  
+  ImageAgent -[#2ecc71]-> ManagerAgent
+  SymptomAgent -[#2ecc71]-> ManagerAgent
+  HistoryAgent -[#2ecc71]-> ManagerAgent
+  TextAgent -[#2ecc71]-> ManagerAgent
+}
+
+
+component "Comprehensive Diagnosis" as Diagnosis #e8eaf6
+
+' Connections
+Images ..> ImageAgent
+Symptoms ..> SymptomAgent
+History ..> HistoryAgent
+Texts ..> TextAgent
+
+ManagerAgent --> Diagnosis
+
+@enduml
