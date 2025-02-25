@@ -1,0 +1,89 @@
+@startuml workflow
+skinparam backgroundColor white
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+skinparam roundCorner 10
+skinparam ArrowColor #3498db
+skinparam ActivityBackgroundColor #f5f7fa
+skinparam ActivityBorderColor #2c3e50
+skinparam ActivityBorderThickness 1
+
+title Medical Diagnostic Assistant - UI Workflow
+
+' Define states
+state "Home" as Home {
+  [*] --> HomeScreen
+  HomeScreen : Welcome screen
+  HomeScreen : Start new diagnostic session
+}
+
+state "Patient Information" as PatientInfo {
+  [*] --> BasicInfo
+  BasicInfo : Patient ID, Name, Age, Gender
+  BasicInfo --> MedicalHistory
+  MedicalHistory : Height, Weight, Blood Type
+  MedicalHistory : Allergies, Medications
+  MedicalHistory : Existing conditions
+}
+
+state "Upload Medical Images" as ImageUpload {
+  [*] --> ImageSelection
+  ImageSelection : Select image type
+  ImageSelection : Choose body region
+  ImageSelection --> ImagePreview
+  ImagePreview : Display uploaded image
+}
+
+state "Symptoms & Lab Results" as SymptomsLab {
+  [*] --> SymptomInput
+  SymptomInput : Chief complaint
+  SymptomInput : Symptom duration
+  SymptomInput : Select symptoms
+  SymptomInput --> LabResults
+  LabResults : Complete Blood Count
+  LabResults : Basic Metabolic Panel
+  LabResults : Liver Function Tests
+  LabResults : Lipid Panel
+}
+
+state "AI Crew (Black Box)" as AICrew #black;line:gray;text:white {
+  [*] --> Processing
+  Processing : Image analysis
+  Processing : Symptom analysis
+  Processing : Medical history analysis 
+  Processing : Lab results analysis
+  Processing --> DiagnosisGeneration
+  DiagnosisGeneration : Generate primary diagnosis
+  DiagnosisGeneration : Calculate confidence scores
+  DiagnosisGeneration : Determine differential diagnoses
+  DiagnosisGeneration : Generate recommendations
+}
+
+state "Diagnostic Results" as Results {
+  [*] --> DiagnosisDisplay
+  DiagnosisDisplay : Primary diagnosis
+  DiagnosisDisplay : Supporting evidence
+  DiagnosisDisplay : Differential diagnoses
+  DiagnosisDisplay --> Actions
+  Actions : Export report (PDF)
+  Actions : Save to patient record
+  Actions : Start new session
+}
+
+' Define transitions
+Home --> PatientInfo : Start diagnostic session
+PatientInfo --> ImageUpload : Save patient information
+ImageUpload --> SymptomsLab : Continue to symptoms
+SymptomsLab --> AICrew : Run diagnostic analysis
+AICrew --> Results : Analysis complete
+
+' Add return paths
+Results --> Home : Start new session
+ImageUpload --> PatientInfo : Back
+SymptomsLab --> ImageUpload : Back
+
+note right of Home : Reset session data
+
+note right of AICrew : AI-driven diagnosis using\nCrewAI and Google AI Studio\nMulti-agent collaboration
+
+@enduml
