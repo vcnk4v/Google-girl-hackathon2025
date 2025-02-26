@@ -4,6 +4,59 @@ from datetime import datetime
 from dotenv import load_dotenv
 from medical_assistants.src.medical_assistants.crew import MedicalAssistants
 import re
+import uuid
+from google import genai
+from google.genai import types
+import PIL.Image
+
+
+class ImageAnalyzer:
+    def __init__(self):
+        pass
+
+    def analyze_image(self, image_metadata):
+        """
+        Analyze a medical image and return insights.
+
+        Args:
+            image_path (str): The path to the image file
+
+        Returns:
+            dict: The analysis results
+        """
+        image = PIL.Image.open(image_metadata.get("full_path"))
+        image_notes = image_metadata.get("notes", "")
+        image_region = image_metadata.get("region", "")
+        image_type = image_metadata.get("type", "")
+        api_key = os.getenv("GEMINI_API_KEY")
+        client = genai.Client(api_key=api_key)
+        response = client.models.generate_content(
+            model="gemini-1.5-flash",
+            contents=[
+                f"You are an expert in medical imaging with specialization in radiology, cardiology, and general diagnostic imaging. You analyze {image_type} images to identify abnormalities, potential conditions, and provide supporting evidence for diagnoses in the region {image_region}. You're precise in your observations and only report findings that are clearly visible in the images. Your analysis includes anatomical descriptions, abnormality characterization, and clinical significance. You always maintain confidentiality and adhere to medical ethics guidelines. Some extra notes are {image_notes}.",
+                image,
+            ],
+        )
+
+        return {
+            # "image_path": image_metadata.get("path"),
+            "findings": response.text,
+        }
+
+    def analyze_multiple_images(self, image_metadata):
+        """
+        Analyze multiple medical images and return insights.
+
+        Args:
+            image_paths (list): List of image file paths
+
+        Returns:
+            list: List of analysis results for each image
+        """
+        return [
+            self.analyze_image(image_metadata_unit)
+            for image_metadata_unit in image_metadata
+        ]
 
 
 class DiagnosticService:
@@ -92,11 +145,15 @@ class DiagnosticService:
 
         # In a real implementation, you would process the images separately
         # and perhaps store them in a different way or format
-        self._save_image_metadata(case_id, uploaded_images)
+        image_metadata = self._save_image_metadata(case_id, uploaded_images)
 
-        return {"case_id": case_id, "data_package": data_package}
+        return {
+            "case_id": case_id,
+            "data_package": data_package,
+            "image_metadata": image_metadata,
+        }
 
-    def run_diagnosis(self, case_id, data_package):
+    def run_diagnosis(self, case_id, data_package, image_metadata):
         """
         Run the diagnostic analysis. This is where you would integrate with CrewAI.
 
@@ -113,11 +170,14 @@ class DiagnosticService:
         symptoms = data_package["symptoms"]
         lab_results = data_package["lab_results"]
 
+        image_results = ImageAnalyzer().analyze_multiple_images(image_metadata)
+
         # Format inputs for CrewAI
         inputs = {
             "patient_data": json.dumps(patient_data),
             "symptoms": json.dumps(symptoms),
             "lab_results": json.dumps(lab_results),
+            "image_results": json.dumps(image_results),
         }
 
         try:
@@ -170,7 +230,7 @@ class DiagnosticService:
         """Save metadata about uploaded images."""
         if not uploaded_images:
             return
-
+        image_paths = []
         case_dir = os.path.join(self.data_dir, case_id)
         os.makedirs(case_dir, exist_ok=True)
 
@@ -180,7 +240,19 @@ class DiagnosticService:
 
         # Save metadata about each image
         image_metadata = []
+
         for i, img_data in enumerate(uploaded_images):
+            # Generate a unique filename for the image
+            filename = f"image_{i}_{uuid.uuid4().hex[:8]}.png"
+            file_path = os.path.join(images_dir, filename)
+
+            # Save the actual image file
+            with open(file_path, "wb") as img_file:
+                img_file.write(img_data.get("file"))
+
+            # Store the relative path for use within the application
+            relative_path = os.path.join("images", filename)
+
             # Extract metadata (excluding the binary file data)
             metadata = {
                 "index": i,
@@ -188,15 +260,18 @@ class DiagnosticService:
                 "region": img_data.get("region"),
                 "date": img_data.get("date"),
                 "notes": img_data.get("notes"),
+                "filename": filename,
+                "path": relative_path,
+                "full_path": file_path,
             }
             image_metadata.append(metadata)
-
-            # In a real implementation, weyou would save the actual image file here
-            # For now, we'll just note that we're skipping this to keep things simple
+            image_paths.append(file_path)
 
         # Save the metadata list
         with open(os.path.join(images_dir, "image_metadata.json"), "w") as f:
             json.dump(image_metadata, f, indent=4)
+
+        return image_metadata
 
     def _save_diagnostic_results(self, case_id, diagnosis):
         """Save the diagnostic results to a JSON file."""

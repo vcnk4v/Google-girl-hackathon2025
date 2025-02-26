@@ -5,6 +5,8 @@ import os
 import json
 from datetime import datetime
 import re
+import PIL.Image
+import base64
 from medical_assistants.crew import MedicalAssistants
 
 warnings.filterwarnings("ignore", category=SyntaxWarning, module="pysbd")
@@ -68,10 +70,14 @@ def run():
         "troponin": "elevated",
         "ekg": "abnormal",
     }
+    image_results = {
+        "findings": "The image shows very slight mass in the right lung.",
+    }
     inputs = {
         "patient_data": json.dumps(patient_data),
         "symptoms": json.dumps(symptoms),
         "lab_results": json.dumps(lab_results),
+        "image_results": json.dumps(image_results),
     }
 
     try:
@@ -136,44 +142,3 @@ def replay():
         MedicalAssistants().crew().replay(task_id=sys.argv[1])
     except Exception as e:
         raise Exception(f"An error occurred while replaying the crew: {e}")
-
-
-def test():
-    """
-    Test the crew execution and returns the results.
-    """
-    sample_inputs = {
-        "patient_data": json.dumps(
-            {
-                "age": 45,
-                "gender": "male",
-                "medical_history": ["hypertension", "type 2 diabetes"],
-                "medications": ["metformin", "lisinopril"],
-            }
-        ),
-        "symptoms": json.dumps(
-            {
-                "chief_complaint": "chest pain",
-                "symptom_list": ["shortness of breath", "fatigue", "dizziness"],
-                "onset_info": {"duration": "3 days", "severity": "moderate"},
-            }
-        ),
-        "lab_results": json.dumps(
-            {
-                "blood_pressure": "150/95",
-                "heart_rate": 95,
-                "blood_glucose": 180,
-                "troponin": "elevated",
-                "ekg": "abnormal",
-            }
-        ),
-    }
-
-    try:
-        MedicalAssistants().crew().test(
-            n_iterations=int(sys.argv[1]),
-            openai_model_name=sys.argv[2],
-            inputs=sample_inputs,
-        )
-    except Exception as e:
-        raise Exception(f"An error occurred while testing the crew: {e}")

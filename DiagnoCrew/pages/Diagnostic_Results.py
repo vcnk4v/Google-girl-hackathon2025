@@ -32,7 +32,7 @@ def render_results_page():
             display_differential_diagnoses(diagnosis)
 
         with col2:
-            display_image_analysis()
+            display_image_analysis(diagnosis)
             display_patient_symptoms()
 
         display_analysis_notes()
@@ -73,17 +73,18 @@ def display_differential_diagnoses(diagnosis):
             st.markdown(f"**{diff['probability']}%**")
 
 
-def display_image_analysis():
+def display_image_analysis(diagnosis):
     """Display image analysis section"""
     st.subheader("Image Analysis")
     if st.session_state.uploaded_images:
-        # Show the first image for simplicity
-        image_data = st.session_state.uploaded_images[0]["file"]
-        image = Image.open(io.BytesIO(image_data))
-        st.image(image, caption="Analyzed Image", use_container_width=True)
+        for image in st.session_state.uploaded_images:
+            image_data = image["file"]
+            image = Image.open(io.BytesIO(image_data))
+            st.image(image, caption="Analyzed Image", use_container_width=True)
 
         st.markdown("**Key Findings**")
-        st.markdown("Looks normal")
+        for finding in diagnosis["image_findings"]:
+            st.markdown(f"- {finding}")
 
     else:
         st.write("No image available")

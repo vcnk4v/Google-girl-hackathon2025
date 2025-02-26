@@ -1,6 +1,6 @@
 analyze_symptoms:
   name: "Analyze Symptoms"
-  description: "Analyze the patient's symptoms {symptoms} with data {patient_data} and lab results {lab_results} and suggest the top 5 relevant diseases."
+  description: "Analyze the patient's symptoms {symptoms} with data {patient_data} and lab results {lab_results} as well as {image_results} from uploaded medical images and suggest the top 5 relevant diseases."
   agent: "symptom_analyzer"
   expected_output: >
     A detailed analysis of the patient's symptoms, including:
@@ -31,5 +31,11 @@ create_diagnostic_report:
         "Additional laboratory tests",
         "Specialist consultation",
         "Follow-up imaging in 2 weeks"
+      ],
+      "image_findings": [
+        "Summary of findings from uploaded medical images in 3-4 sentences and precise",
+        "Recommendations for further imaging or tests"
       ]
+        ...
+      ],
     }

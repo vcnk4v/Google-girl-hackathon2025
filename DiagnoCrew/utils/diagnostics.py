@@ -35,7 +35,9 @@ def run_diagnostic_analysis():
 
     # Run the diagnostic analysis
     diagnosis = diagnostic_service.run_diagnosis(
-        case_id=result["case_id"], data_package=result["data_package"]
+        case_id=result["case_id"],
+        data_package=result["data_package"],
+        image_metadata=result["image_metadata"],
     )
 
     # Store the diagnosis in session state

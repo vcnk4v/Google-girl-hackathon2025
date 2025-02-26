@@ -14,6 +14,7 @@ class MedicalAssistants:
     This crew consists of two agents:
     1. Symptom Analyzer - Analyzes patient symptoms and medical data
     2. Report Creator - Creates comprehensive diagnostic reports
+    3. Image Analyst - Analyzes medical images and generates insights
     """
 
     agents_config = "config/agents.yaml"

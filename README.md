@@ -71,9 +71,15 @@ Before you begin, ensure you have the following installed:
    crewai install
    ```
 
-4. Return to DiagnoCrew directory
-
-5. Add your GEMINI API key to .env files by adding `GEMINI_API_KEY=<your_api_key>` or run on the terminal: `export GEMINI_API_KEY=<your_api_key>`.
+4. Add your GEMINI API key to .env files by adding `GEMINI_API_KEY=<your_api_key>` or run on the terminal: `export GEMINI_API_KEY=<your_api_key>`.
+   Ensure that .env file inside the medical_assistants directory looks like this:
+   ```
+   MODEL=gemini/gemini-1.5-flash
+   GEMINI_API_KEY=<api_key>
+   OTEL_SDK_DISABLED=true
+   ```
+5. Return to DiagnoCrew directory
+6. Run `export OTEL_SDK_DISABLED=true` on the terminal.
 
 ---
 
