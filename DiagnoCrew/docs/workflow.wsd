@@ -65,6 +65,7 @@ state "Diagnostic Results" as Results {
   DiagnosisDisplay : Supporting evidence
   DiagnosisDisplay : Differential diagnoses
   DiagnosisDisplay --> Actions
+  DiagnosisDisplay : Image analysis results
   Actions : Export report (PDF)
   Actions : Save to patient record
   Actions : Start new session
@@ -84,6 +85,6 @@ SymptomsLab --> ImageUpload : Back
 
 note right of Home : Reset session data
 
-note right of AICrew : AI-driven diagnosis using\nCrewAI and Google AI Studio\nMulti-agent collaboration
+note right of AICrew : AI-driven diagnosis using\nCrewAI and Google AI Studio\nMulti-agent collaboration. \nLab and Medical History agents not implemented separately done yet, \ncombined with symptoms
 
 @enduml

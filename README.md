@@ -12,6 +12,7 @@ DiagnoCrew is a medical diagnostic assistant powered by AI agents. It uses a cre
 3. [Running the Application](#running-the-application)
 4. [Project Structure](#project-structure)
 5. [Troubleshooting](#troubleshooting)
+6. [Features](#features)
 
 ---
 
@@ -95,7 +96,7 @@ Before you begin, ensure you have the following installed:
 
 ---
 
-## Running the Application
+## Starting the Application
 
 1. Ensure you are in the `DiagnoCrew` directory and the virtual environment is activated.
 2. Run the Streamlit app:
@@ -115,6 +116,48 @@ Before you begin, ensure you have the following installed:
 4. Open your web browser and navigate to the provided URL (e.g., `http://localhost:8501`).
 
 ---
+
+## Troubleshooting
+
+### 1. **Virtual Environment Issues**
+
+- If you encounter issues activating the virtual environment, ensure you are using the correct command for your operating system.
+- If the virtual environment is not recognized, recreate it using `python -m venv .venv`.
+
+### 2. **Dependency Installation Issues**
+
+- If `pip install -r requirements.txt` fails, ensure you have the latest version of `pip`:
+  ```bash
+  pip install --upgrade pip
+  ```
+- If you still encounter issues, try installing the dependencies one by one:
+  ```bash
+  pip install streamlit crewai crewai-tools
+  ```
+
+### 3. **Streamlit App Not Running**
+
+- Ensure you are in the `DiagnoCrew` directory before running `streamlit run app.py`.
+- If the app does not open in your browser, manually navigate to `http://localhost:8501`.
+
+## Features
+
+- Patient information management
+- Medical image upload and analysis
+- Symptom recording and tracking
+- Laboratory results analysis
+- AI-assisted diagnostic recommendations
+
+## How to Use
+
+1. Start new session
+2. Navigate by double-clicking on buttons or sidebar.
+3. Enter patient data and medical history.
+4. Upload relevant medical images
+5. Enter visible symptoms, onset and duration, as well as other details.
+6. If any lab tests were conducted, click on lab tests tab and enter the results and measurements.
+7. Click on Run Diagnostic Analysis and wait for 2-3 seconds for our Diagnosis Crew to discuss and decide on the causes.
+8. Once completed, navigate to results page to view full preliminary diagnosis and report.
 
 ## Project Structure
 
@@ -179,37 +222,6 @@ Here’s an overview of the project structure:
 ```
 
 ---
-
-## Troubleshooting
-
-### 1. **Virtual Environment Issues**
-
-- If you encounter issues activating the virtual environment, ensure you are using the correct command for your operating system.
-- If the virtual environment is not recognized, recreate it using `python -m venv .venv`.
-
-### 2. **Dependency Installation Issues**
-
-- If `pip install -r requirements.txt` fails, ensure you have the latest version of `pip`:
-  ```bash
-  pip install --upgrade pip
-  ```
-- If you still encounter issues, try installing the dependencies one by one:
-  ```bash
-  pip install streamlit crewai crewai-tools
-  ```
-
-### 3. **Streamlit App Not Running**
-
-- Ensure you are in the `DiagnoCrew` directory before running `streamlit run app.py`.
-- If the app does not open in your browser, manually navigate to `http://localhost:8501`.
-
-## Features
-
-- Patient information management
-- Medical image upload and analysis
-- Symptom recording and tracking
-- Laboratory results analysis
-- AI-assisted diagnostic recommendations
 
 ## Note
 

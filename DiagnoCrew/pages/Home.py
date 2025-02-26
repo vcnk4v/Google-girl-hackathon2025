@@ -4,7 +4,7 @@ from state import navigate_to, reset_session_data
 
 def render_home_page():
     """Render the home page"""
-    st.title("Welcome to the Medical Diagnostic Assistant")
+    st.title("Welcome to DiagnoCrew Assistant")
 
     col1, col2 = st.columns([2, 1])
 

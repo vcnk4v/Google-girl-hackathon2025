@@ -6,7 +6,8 @@ from state import navigate_to
 def render_sidebar():
     """Render the sidebar navigation"""
     with st.sidebar:
-        st.title("Medical Diagnostic Assistant")
+        st.title("DiagnoCrew")
+        st.caption("AI-assisted diagnostic tool")
 
         st.subheader("Navigation")
         if st.button("Home", use_container_width=True):
