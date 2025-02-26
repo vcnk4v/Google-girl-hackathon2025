@@ -2,6 +2,8 @@
 
 DiagnoCrew is a medical diagnostic assistant powered by AI agents. It uses a crew of agents to analyze patient symptoms, medical history, and lab results to provide a comprehensive diagnostic report.
 
+Please download and view the demo video at : [Demo Video](#https://github.com/vcnk4v/Google-girl-hackathon2025/blob/main/demo.webm)
+
 ## Table of Contents
 
 1. [Prerequisites](#prerequisites)
