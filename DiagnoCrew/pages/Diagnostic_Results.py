@@ -44,7 +44,7 @@ def display_primary_diagnosis(diagnosis):
     st.subheader("Primary Diagnosis")
     st.markdown(f"### {diagnosis['primary_diagnosis']}")
     st.progress(diagnosis["confidence"])
-    st.caption(f"Confidence: {diagnosis['confidence'] * 100:.1f}%")
+    st.caption(f"Confidence: {diagnosis['confidence']}")
 
 
 def display_supporting_evidence(diagnosis):
@@ -69,16 +69,16 @@ def display_differential_diagnoses(diagnosis):
         col1, col2 = st.columns([3, 1])
         with col1:
             st.markdown(f"**{diff['condition']}**")
-            st.progress(diff["probability"])
         with col2:
-            st.markdown(f"**{diff['probability'] * 100:.1f}%**")
+            st.markdown(f"**{diff['probability']}%**")
 
 
 def display_image_analysis():
     """Display image analysis section"""
     st.subheader("Image Analysis")
-    if st.session_state.uploaded_image:
-        image_data = st.session_state.uploaded_image["file"]
+    if st.session_state.uploaded_images:
+        # Show the first image for simplicity
+        image_data = st.session_state.uploaded_images[0]["file"]
         image = Image.open(io.BytesIO(image_data))
         st.image(image, caption="Analyzed Image", use_container_width=True)
 

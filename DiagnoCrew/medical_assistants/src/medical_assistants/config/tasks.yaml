@@ -1,0 +1,35 @@
+analyze_symptoms:
+  name: "Analyze Symptoms"
+  description: "Analyze the patient's symptoms {symptoms} with data {patient_data} and lab results {lab_results} and suggest the top 5 relevant diseases."
+  agent: "symptom_analyzer"
+  expected_output: >
+    A detailed analysis of the patient's symptoms, including:
+    - Top 5 relevant diseases
+    - Supporting evidence for each disease
+    - Confidence levels for each diagnosis
+
+create_diagnostic_report:
+  name: "Create Diagnostic Report"
+  description: "Format the analysis into a structured diagnostic report."
+  agent: "report_creator"
+  expected_output: >
+    A structured json object diagnostic report in the following format:
+    {
+      "primary_diagnosis": "Detailed analysis of the most likely condition",
+      "confidence": confidence_score},
+      "differential_diagnoses": [
+        {"condition": "Condition A", "probability": probability_percentage},
+        {"condition": "Condition B", "probability": probability_percentage},
+        {"condition": "Condition C", "probability": probability_percentage}
+      ],
+      "supporting_evidence": [
+        "Patient symptoms match condition profile",
+        "Lab results show characteristic patterns",
+        "Relevant links and web searches"
+      ],
+      "recommended_actions": [
+        "Additional laboratory tests",
+        "Specialist consultation",
+        "Follow-up imaging in 2 weeks"
+      ]
+    }

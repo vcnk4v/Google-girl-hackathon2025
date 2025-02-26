@@ -1,1 +1,11 @@
 __pycache__/
+.venv/
+.env/
+*.pyc
+uv.lock
+training_data.pkl
+trained_agents_data.pkl
+*/__pycache__/
+*/.venv/
+*/.env/
+*/.pyc

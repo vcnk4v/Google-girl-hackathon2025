@@ -2,37 +2,46 @@
 import streamlit as st
 import time
 from datetime import datetime
+from medical_assistants.backend_services import DiagnosticService
 
 
 def run_diagnostic_analysis():
     """
     Run diagnostic analysis on patient data
-    This is a placeholder for actual AI model integration
     """
-    # Simulate processing time
-    time.sleep(3)
+    diagnostic_service = DiagnosticService()
 
-    # Create mock diagnosis
-    st.session_state.diagnosis = {
-        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        "status": "completed",
-        "primary_diagnosis": "Sample diagnosis for demonstration purposes",
-        "confidence": 0.85,
-        "differential_diagnoses": [
-            {"condition": "Condition A", "probability": 0.85},
-            {"condition": "Condition B", "probability": 0.60},
-            {"condition": "Condition C", "probability": 0.45},
-        ],
-        "supporting_evidence": [
-            "Patient symptoms match condition profile",
-            "Image analysis detected relevant features",
-            "Lab results show characteristic patterns",
-        ],
-        "recommended_actions": [
-            "Additional laboratory tests",
-            "Specialist consultation",
-            "Follow-up imaging in 2 weeks",
-        ],
-    }
+    patient_data = st.session_state.patient_data
+    uploaded_images = st.session_state.uploaded_images
+    symptoms = st.session_state.symptoms
+    lab_results = st.session_state.lab_results
+    chief_complaint = st.session_state.get("chief_complaint", "")
+    additional_symptoms = st.session_state.get("additional_symptoms", "")
+    onset_info = st.session_state.get("onset_info", {})
+
+    # Send data to backend service
+    result = diagnostic_service.process_diagnostic_data(
+        patient_data=patient_data,
+        uploaded_images=uploaded_images,
+        symptoms=symptoms,
+        lab_results=lab_results,
+        chief_complaint=chief_complaint,
+        additional_symptoms=additional_symptoms,
+        onset_info=onset_info,
+    )
+
+    # Store the case ID
+    st.session_state.case_id = result["case_id"]
+
+    # Run the diagnostic analysis
+    diagnosis = diagnostic_service.run_diagnosis(
+        case_id=result["case_id"], data_package=result["data_package"]
+    )
+
+    # Store the diagnosis in session state
+    st.session_state.diagnosis = diagnosis
+
+    # Log success message
+    st.success(f"Analysis complete! Case ID: {result['case_id']}")
 
     return st.session_state.diagnosis
