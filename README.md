@@ -73,6 +73,8 @@ Before you begin, ensure you have the following installed:
 
 4. Return to DiagnoCrew directory
 
+5. Add your GEMINI API key to .env files by adding `GEMINI_API_KEY=<your_api_key>` or run on the terminal: `export GEMINI_API_KEY=<your_api_key>`.
+
 ---
 
 ### Install Dependencies
