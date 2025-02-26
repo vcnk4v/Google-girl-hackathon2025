@@ -9,3 +9,4 @@ trained_agents_data.pkl
 */.venv/
 */.env/
 */.pyc
+.vscode/
