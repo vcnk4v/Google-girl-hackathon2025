@@ -1,7 +1,3 @@
-Here’s a **README.md** file that provides step-by-step instructions for setting up and running the `DiagnoCrew` project. This includes creating a virtual environment, installing dependencies, and running the Streamlit app.
-
----
-
 # DiagnoCrew - Medical Diagnostic Assistant
 
 DiagnoCrew is a medical diagnostic assistant powered by AI agents. It uses a crew of agents to analyze patient symptoms, medical history, and lab results to provide a comprehensive diagnostic report.
