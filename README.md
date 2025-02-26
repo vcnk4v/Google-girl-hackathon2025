@@ -69,6 +69,14 @@ Before you begin, ensure you have the following installed:
 
    You should see `(.venv)` at the beginning of your terminal prompt, indicating the virtual environment is active.
 
+3. Go into medical_assistants directory and run
+
+   ```
+   crewai install
+   ```
+
+4. Return to DiagnoCrew directory
+
 ---
 
 ### Install Dependencies

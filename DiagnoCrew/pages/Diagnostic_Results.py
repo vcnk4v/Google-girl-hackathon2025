@@ -83,8 +83,8 @@ def display_image_analysis():
         st.image(image, caption="Analyzed Image", use_container_width=True)
 
         st.markdown("**Key Findings**")
-        st.markdown("- Finding 1: Sample observation")
-        st.markdown("- Finding 2: Sample observation")
+        st.markdown("Looks normal")
+
     else:
         st.write("No image available")
 
