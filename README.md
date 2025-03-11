@@ -23,7 +23,6 @@ Please download and view the demo video at : [Demo Video](https://github.com/vcn
 Before you begin, ensure you have the following installed:
 
 - **Python 3.10 or higher**: [Download Python](https://www.python.org/downloads/)
-- **Git**: [Download Git](https://git-scm.com/downloads)
 - **Streamlit**: Will be installed as part of the dependencies.
 
 ---
