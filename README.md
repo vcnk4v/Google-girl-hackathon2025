@@ -6,24 +6,14 @@ Please download and view the demo video at : [Demo Video](https://github.com/vcn
 
 ## Table of Contents
 
-1. [Prerequisites](#prerequisites)
-2. [Setup](#setup)
+1. [Setup](#setup)
    - [Clone the Repository](#clone-the-repository)
    - [Create a Virtual Environment](#create-a-virtual-environment)
    - [Install Dependencies](#install-dependencies)
-3. [Running the Application](#running-the-application)
-4. [Project Structure](#project-structure)
-5. [Troubleshooting](#troubleshooting)
-6. [Features](#features)
-
----
-
-## Prerequisites
-
-Before you begin, ensure you have the following installed:
-
-- **Python 3.10 or higher**: [Download Python](https://www.python.org/downloads/)
-- **Streamlit**: Will be installed as part of the dependencies.
+2. [Running the Application](#running-the-application)
+3. [Project Structure](#project-structure)
+4. [Troubleshooting](#troubleshooting)
+5. [Features](#features)
 
 ---
 
